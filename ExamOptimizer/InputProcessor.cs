@@ -30,7 +30,7 @@ public class InputProcessor
     {
         using StreamReader reader = new StreamReader(filename);
         ParseMetadata(reader);
-        
+
         List<Topic> topics = new List<Topic>(_numberOfTopics);
 
         for (int i = 0; i < _numberOfTopics; ++i)
@@ -70,23 +70,45 @@ public class InputProcessor
         {
             throw new InvalidOperationException("Unexpected end of file at line 1");
         }
-        
+
         (_hoursToPrepare, _numberOfTestQuestions) = ParseLine(line);
-        
+
         line = reader.ReadLine();
         if (line == null)
         {
             throw new InvalidOperationException("Unexpected end of file at line 2");
         }
         
-        _numberOfTopics = int.Parse(line);
+        try
+        {
+            _numberOfTopics = int.Parse(line);
+        }
+        catch (Exception e)
+        {
+            throw new InvalidOperationException($"Could not parse line '{line}' due to exception: {e.Message}");
+        }
     }
 
     private static (int firstElement, int secondElement) ParseLine(string line)
     {
         string[] parts = line.Split(' ');
-        int firstElement = int.Parse(parts[0]);
-        int secondElement = int.Parse(parts[1]);
+
+        if (parts.Length != 2)
+        {
+            throw new InvalidOperationException($"Expected 2 elements, but got {parts.Length} elements");
+        }
+
+        int firstElement, secondElement;
+
+        try
+        {
+            firstElement = int.Parse(parts[0]);
+            secondElement = int.Parse(parts[1]);
+        }
+        catch (Exception e)
+        {
+            throw new InvalidOperationException($"Could not parse line '{line}' due to exception: {e.Message}");
+        }
 
         return (firstElement, secondElement);
     }
