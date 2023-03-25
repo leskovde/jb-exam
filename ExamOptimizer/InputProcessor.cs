@@ -68,7 +68,7 @@ public class InputProcessor
         string? line = reader.ReadLine();
         if (line == null)
         {
-            throw new Exception("Unexpected end of file at line 1");
+            throw new InvalidOperationException("Unexpected end of file at line 1");
         }
         
         (_hoursToPrepare, _numberOfTestQuestions) = ParseLine(line);
@@ -76,7 +76,7 @@ public class InputProcessor
         line = reader.ReadLine();
         if (line == null)
         {
-            throw new Exception("Unexpected end of file at line 2");
+            throw new InvalidOperationException("Unexpected end of file at line 2");
         }
         
         _numberOfTopics = int.Parse(line);

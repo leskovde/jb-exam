@@ -25,6 +25,7 @@ List<Topic> selectedTopics = new List<Topic>();
 int hoursLeft = parser.HoursToPrepare;
 int numberOfQuestionsLeft = parser.NumberOfTestQuestions;
 
+// TODO: This approach studies more topics than needed.
 foreach (Topic topic in sortedTopics)
 {
     if (hoursLeft - topic.HoursToComplete >= 0 && numberOfQuestionsLeft >= 0)
