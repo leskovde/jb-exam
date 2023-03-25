@@ -24,7 +24,7 @@ public class OutputProcessor
             --------------
             Topics selected:
                 {string.Join(", ", selectedTopics.Select(x => x.Index))}
-            Total: {selectedTopics.Count} topics
+            Total: {selectedTopics.Count} topics, {selectedTopics.Sum(x => x.HoursToComplete)} hours, {selectedTopics.Sum(x => x.NumberOfQuestions)} questions
             """;
 
         Console.WriteLine(outputMessage);
