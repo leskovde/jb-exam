@@ -23,18 +23,15 @@ IEnumerable<Topic> sortedTopics = topics.OrderByDescending(topic => topic.Questi
 
 List<Topic> selectedTopics = new List<Topic>();
 int hoursLeft = parser.HoursToPrepare;
-int numberOfQuestionsLeft = parser.NumberOfTestQuestions;
 
-// TODO: This approach studies more topics than needed.
 foreach (Topic topic in sortedTopics)
 {
-    if (hoursLeft - topic.HoursToComplete >= 0 && numberOfQuestionsLeft >= 0)
+    if (hoursLeft - topic.HoursToComplete >= 0)
     {
         selectedTopics.Add(topic);
         hoursLeft -= topic.HoursToComplete;
-        numberOfQuestionsLeft -= topic.NumberOfQuestions;
     }
 }
 
-OutputProcessor outputProcessor = new OutputProcessor(parser.HoursToPrepare, parser.NumberOfTopics, parser.NumberOfTestQuestions);
-outputProcessor.Print(selectedTopics);
+ResultPrinter printer = new ResultPrinter(parser.HoursToPrepare, parser.NumberOfTopics, parser.NumberOfTestQuestions);
+printer.Print(selectedTopics, topics);
