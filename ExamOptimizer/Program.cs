@@ -24,6 +24,11 @@ if (args[0] == "-g" || args[0] == "--greedy")
     algorithm = new GreedyAlgorithm();
 }
 
+if (args[0] == "-d" || args[0] == "--dynamic")
+{
+    algorithm = new KnapsackAlgorithm();
+}
+
 if (algorithm == null)
 {
     throw new Exception($"Unknown algorithm '{args[0]}'");
