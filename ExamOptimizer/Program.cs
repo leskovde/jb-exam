@@ -1,8 +1,8 @@
 ﻿using ExamOptimizer;
 
-if (args.Length != 1)
+if (args.Length != 2)
 {
-    Console.WriteLine("Usage: dotnet run <filename>");
+    Console.WriteLine("Usage: dotnet run <algorithm> <filename>");
     return;
 }
 
@@ -15,23 +15,21 @@ if (args.Length != 1)
 // We need to maximize the number of questions we will be able to answer.
 
 InputProcessor parser = new InputProcessor();
-List<Topic> topics = parser.Parse(args[0]);
+List<Topic> topics = parser.Parse(args[1]);
 
-// Sort the topics by the number of questions per hour.
+IExamAlgorithm? algorithm = null;
 
-IEnumerable<Topic> sortedTopics = topics.OrderByDescending(topic => topic.QuestionsPerHour);
-
-List<Topic> selectedTopics = new List<Topic>();
-int hoursLeft = parser.HoursToPrepare;
-
-foreach (Topic topic in sortedTopics)
+if (args[0] == "-g" || args[0] == "--greedy")
 {
-    if (hoursLeft - topic.HoursToComplete >= 0)
-    {
-        selectedTopics.Add(topic);
-        hoursLeft -= topic.HoursToComplete;
-    }
+    algorithm = new GreedyAlgorithm();
 }
+
+if (algorithm == null)
+{
+    throw new Exception($"Unknown algorithm '{args[0]}'");
+}
+
+List<Topic> selectedTopics = algorithm.Solve(topics, parser.HoursToPrepare).ToList();
 
 ResultPrinter printer = new ResultPrinter(parser.HoursToPrepare, parser.NumberOfTopics, parser.NumberOfTestQuestions);
 printer.Print(selectedTopics, topics);
