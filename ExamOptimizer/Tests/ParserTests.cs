@@ -65,11 +65,16 @@ public class ParserTests
     {
         List<Topic> referenceTopics = new List<Topic>()
         {
-
+            new (1, 1, 2),
+            new (2, 2, 3),
+            new (3, 3, 4),
+            new (4, 4, 5)
         };
 
-        List<Topic> topics = _inputProcessor.Parse("../../../Inputs/Example1.txt");
-
+        List<Topic> topics = _inputProcessor.Parse("../../../../Inputs/Example1.txt");
+        
+        Assert.AreEqual(24, _inputProcessor.HoursToPrepare);
+        Assert.AreEqual(3, _inputProcessor.NumberOfTestQuestions);
         Assert.AreEqual(referenceTopics.Count, topics.Count);
 
         for (int i = 0; i < referenceTopics.Count; ++i)
@@ -84,11 +89,16 @@ public class ParserTests
     {
         List<Topic> referenceTopics = new List<Topic>()
         {
-
+            new (1, 1, 2),
+            new (2, 2, 3),
+            new (3, 3, 4),
+            new (4, 4, 5)
         };
 
-        List<Topic> topics = _inputProcessor.Parse("../../../Inputs/Example2.txt");
-
+        List<Topic> topics = _inputProcessor.Parse("../../../../Inputs/Example2.txt");
+        
+        Assert.AreEqual(8, _inputProcessor.HoursToPrepare);
+        Assert.AreEqual(3, _inputProcessor.NumberOfTestQuestions);
         Assert.AreEqual(referenceTopics.Count, topics.Count);
 
         for (int i = 0; i < referenceTopics.Count; ++i)
@@ -101,19 +111,15 @@ public class ParserTests
     [Test]
     public void Example3Test()
     {
-        List<Topic> referenceTopics = new List<Topic>()
-        {
+        List<Topic> topics = _inputProcessor.Parse("../../../../Inputs/Example3.txt");
 
-        };
-
-        List<Topic> topics = _inputProcessor.Parse("../../../Inputs/Example3.txt");
-
-        Assert.AreEqual(referenceTopics.Count, topics.Count);
-
-        for (int i = 0; i < referenceTopics.Count; ++i)
-        {
-            // Records are compared by value, not by reference.
-            Assert.AreEqual(referenceTopics[i], topics[i]);
-        }
+        Assert.AreEqual(24, _inputProcessor.HoursToPrepare);
+        Assert.AreEqual(3, _inputProcessor.NumberOfTestQuestions);
+        Assert.AreEqual(20, topics.Count);
+        Assert.IsTrue(topics.Count(x => x.NumberOfQuestions == 1) == 5);
+        Assert.IsTrue(topics.Count(x => x.NumberOfQuestions == 2) == 5);
+        Assert.IsTrue(topics.Count(x => x.NumberOfQuestions == 3) == 10);
+        Assert.IsTrue(topics.Count(x => x.HoursToComplete == 1) == 10);
+        Assert.IsTrue(topics.Count(x => x.HoursToComplete == 2) == 10);
     }
 }
