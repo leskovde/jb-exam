@@ -18,7 +18,7 @@ public class KnapsackAlgorithm : IExamAlgorithm
                     topicsTable[i, j] = topicsTable[i - 1, j];
         
         // Get the topics that contributed to the solution.
-        List<Topic> selectedTopics = new List<Topic>();
+        List<Topic> selectedTopics = new();
         int hoursLeft = hoursToPrepare;
         
         for (int i = topics.Count; i > 0; i--)

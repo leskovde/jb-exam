@@ -31,7 +31,7 @@ public class InputProcessor
         using StreamReader reader = new StreamReader(filename);
         ParseMetadata(reader);
 
-        List<Topic> topics = new List<Topic>(_numberOfTopics);
+        List<Topic> topics = new(_numberOfTopics);
 
         for (int i = 0; i < _numberOfTopics; ++i)
         {

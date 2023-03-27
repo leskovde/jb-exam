@@ -4,10 +4,9 @@ public class GreedyAlgorithm : IExamAlgorithm
 {
     public IList<Topic> Solve(IList<Topic> topics, int hoursToPrepare)
     {
-        List<Topic> selectedTopics = new List<Topic>();
+        List<Topic> selectedTopics = new();
         int hoursLeft = hoursToPrepare;
-        
-        
+
         // Sort the topics by the number of questions per hour.
         IEnumerable<Topic> sortedTopics = topics.OrderByDescending(topic => topic.QuestionsPerHour);
         
