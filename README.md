@@ -71,6 +71,23 @@ The downside of the approach, as it is implemented now, is that it requires a lo
 Normally, this would be concerning, but in this case, the memory requirements are not very high.
 As stated above, a single student is unlikely to have more than hundreds topics to study, and his time on this Earth is limited, as it is for all of us.
 
+## Running the Program
+
+The program is a console application written in C#. It targets .NET 7 and can be run on any platform that supports .NET 7.
+
+The solution can be loaded using your favorite IDE, such as Visual Studio or Rider.
+It can then be built and run as a self-contained application.
+
+Alternatively, you can run the program from the command line using the `dotnet` command.
+The following CLI command will run the program with the input in `Example2.txt`:
+
+```
+dotnet run --project ExamOptimizer.csproj -d Inputs/Example2.txt
+```
+
+The `-d` switch specifies the dynamic programming approach should be used. 
+Use `-d` or `--dynamic` for the dynamic programming approach, and `-g` or `--greedy` for the greedy approach.
+
 ## Output
 
 The program pretty-prints the solution to the console.
