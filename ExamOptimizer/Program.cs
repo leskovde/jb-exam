@@ -15,7 +15,21 @@ if (args.Length != 2)
 // We need to maximize the number of questions we will be able to answer.
 
 InputProcessor parser = new InputProcessor();
-List<Topic> topics = parser.Parse(args[1]);
+List<Topic> topics;
+try
+{
+    topics = parser.Parse(args[1]);
+}
+catch (FileNotFoundException e)
+{
+    Console.WriteLine($"Could not find file '{args[1]}': {e.Message}");
+    return;
+}
+catch (Exception e)
+{
+    Console.WriteLine($"Could not parse file '{args[1]}': {e.Message}");
+    return;
+}
 
 IExamAlgorithm? algorithm = null;
 
